@@ -1,8 +1,14 @@
+import Header from "./_components/header";
+import SearchInput from "./_components/ui/search-input";
+
 const Home = () => {
   return (
-    <div className="mx-6 bg-red-500 py-5">
-      <h1>Hello tailwind</h1>
-    </div>
+    <>
+      <Header />
+      <div className="px-5 pt-6">
+        <SearchInput onSearch={() => {}} />
+      </div>
+    </>
   );
 };
 export default Home;
