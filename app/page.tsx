@@ -1,6 +1,6 @@
 const Home = () => {
   return (
-    <div className="py-5 bg-red-500 mx-6">
+    <div className="mx-6 bg-red-500 py-5">
       <h1>Hello tailwind</h1>
     </div>
   );
