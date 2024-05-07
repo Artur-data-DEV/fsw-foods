@@ -16,10 +16,15 @@ interface ProductItemProps {
 }
 
 const ProductItem = ({ product }: ProductItemProps) => {
-  const { name, imageUrl, discountPercentage, price, restaurant } = product;
-  const restaurantName = restaurant.name;
+  const {
+    name,
+    imageUrl,
+    discountPercentage,
+    price,
+    restaurant: { name: restaurantName },
+  } = product;
 
-  const totalPrice = calculateProductTotalPrice(product);
+  const totalPrice = calculateProductTotalPrice({ product });
 
   return (
     <div className="w-[150px] min-w-[150px] space-y-2">
@@ -31,7 +36,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
           className="rounded-lg object-cover shadow-md"
         />
         {discountPercentage !== 0 && (
-          <div className="absolute left-0 top-0 flex items-center gap-[2px] rounded-full bg-primary px-2 py-[2px] text-white">
+          <div className="absolute left-2 top-2 flex items-center gap-[2px] rounded-full bg-primary px-2 py-[2px] text-white">
             <ArrowDownIcon size={12} />
             <span className="text-xs font-semibold">{`${discountPercentage}%`}</span>
           </div>
