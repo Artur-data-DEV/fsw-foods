@@ -10,7 +10,6 @@ const PromoBanner = (props: ImageProps) => {
       sizes="100vw"
       quality={100}
       priority={true}
-      layout="responsive"
       {...props}
     />
   );
