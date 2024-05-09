@@ -16,27 +16,54 @@ const ProductPage = async ({ params: { id } }: ProductPageProps) => {
     },
     include: {
       restaurant: true,
+      category: true, // Incluindo a categoria do produto
     },
   });
+
   if (!product) {
     return notFound();
   }
+
   const {
+    category: { name: categoryName },
     restaurant: { id: restaurantId },
   } = product;
 
-  const complementaryProducts = await db.product.findMany({
-    where: {
-      // category: {
-      //   name: "Sucos",
-      // },
-      // É POSSIVEL REALIZAR FILTROS COMO ESSE FILTRO DE APENAS SUCOS
-      restaurantId: restaurantId,
-    },
-    include: {
-      restaurant: true,
-    },
-  });
+  let complementaryProducts;
+
+  if (
+    ["Hamburguers", "Pizzas", "Japonesa", "Brasileira"].includes(categoryName)
+  ) {
+    // Se for uma categoria primária, buscar sucos e sobremesas
+    complementaryProducts = await db.product.findMany({
+      where: {
+        OR: [
+          { category: { name: "Sucos" } },
+          { category: { name: "Sobremesas" } },
+        ],
+        restaurantId: restaurantId,
+      },
+      include: {
+        restaurant: true,
+      },
+    });
+  } else {
+    // Se não for uma categoria secundaria, buscar hamburguers, pizzas, japonesa ou brasileira
+    complementaryProducts = await db.product.findMany({
+      where: {
+        OR: [
+          { category: { name: "Hamburguers" } },
+          { category: { name: "Pizzas" } },
+          { category: { name: "Japonesa" } },
+          { category: { name: "Brasileira" } },
+        ],
+        restaurantId: restaurantId,
+      },
+      include: {
+        restaurant: true,
+      },
+    });
+  }
 
   return (
     <div>
