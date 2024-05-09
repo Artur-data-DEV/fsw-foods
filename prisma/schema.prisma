@@ -8,20 +8,20 @@ datasource db {
 }
 
 model Account {
-  id                String  @id @default(cuid())
-  userId            String  @map("user_id")
+  id                String    @id @default(cuid())
+  userId            String    @map("user_id")
   type              String
   provider          String
-  providerAccountId String  @map("provider_account_id")
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  providerAccountId String    @map("provider_account_id")
+  refresh_token     String?   @db.Text
+  access_token      String?   @db.Text
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?   @db.Text
   session_state     String?
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
   @@map("accounts")
@@ -64,7 +64,7 @@ model Restaurant {
   id                  String                   @id @default(uuid())
   name                String
   imageUrl            String
-  deliveryFee         Decimal                  @db.Decimal(10, 2)
+  deliveryFee         Float                    
   deliveryTimeMinutes Int
   categories          Category[]
   products            Product[]
@@ -96,7 +96,7 @@ model Product {
   name               String
   description        String
   imageUrl           String
-  price              Decimal        @db.Decimal(10, 2)
+  price              Float          
   discountPercentage Int            @default(0)
   restaurantId       String
   restaurant         Restaurant     @relation(fields: [restaurantId], references: [id])
@@ -122,11 +122,11 @@ model Order {
   products            OrderProduct[]
   restaurant          Restaurant     @relation(fields: [restaurantId], references: [id])
   restaurantId        String
-  deliveryFee         Decimal        @db.Decimal(10, 2)
+  deliveryFee         Float          
   deliveryTimeMinutes Int
-  subtotalPrice       Decimal        @db.Decimal(10, 2)
-  totalPrice          Decimal        @db.Decimal(10, 2)
-  totalDiscounts      Decimal        @db.Decimal(10, 2)
+  subtotalPrice       Float          
+  totalPrice          Float          
+  totalDiscounts      Float          
   createdAt           DateTime       @default(now())
   status              OrderStatus
 }

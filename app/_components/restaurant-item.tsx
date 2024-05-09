@@ -42,9 +42,9 @@ const RestaurantItem = ({ restaurant }: RestaurantItemProps) => {
           <div className="flex items-center gap-1">
             <BikeIcon className="text-primary" size={14} />
             <span className="text-xs text-muted-foreground">
-              {Number(deliveryFee) === 0
+              {deliveryFee === 0
                 ? "Entrega grátis"
-                : formatCurrency(Number(deliveryFee))}
+                : formatCurrency(deliveryFee)}
             </span>
           </div>
           {/* TEMPO DE ENTREGA */}
