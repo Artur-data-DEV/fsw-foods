@@ -1,4 +1,5 @@
 import { Product } from "@prisma/client";
+import { Decimal } from "Decimal.js";
 
 interface PriceCalculateItemProps {
   product: Product;
@@ -18,10 +19,12 @@ export const calculateProductTotalPrice = ({
   return discountedPrice;
 };
 
-export const formatCurrency = (value: number): string => {
+export const formatCurrency = (value: Decimal | string | number): string => {
+  const numericValue =
+    typeof value === "string" ? parseFloat(value) : Number(value);
   return new Intl.NumberFormat("pt-BR", {
     style: "currency",
     currency: "BRL",
     minimumFractionDigits: 2,
-  }).format(value);
+  }).format(numericValue);
 };
