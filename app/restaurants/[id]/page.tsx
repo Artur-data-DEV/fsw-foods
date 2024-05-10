@@ -99,7 +99,7 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
         ))}
       </div>
 
-      <div className="mt-6 space-y-4">
+      <div className="mt-6 space-y-4 px-3">
         <h2 className="px-5 font-semibold">Mais Pedidos</h2>
         <ProductList products={restaurantProducts} />
         {restaurantCategory.map(({ id, name, products }) => (
