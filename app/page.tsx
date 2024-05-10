@@ -43,7 +43,7 @@ const Home = async () => {
         <CategoryList />
       </div>
 
-      <div className={"px-5 pt-6"}>
+      <div className={"pt-6"}>
         <PromoBanner
           src="/Banner_Pizza.png"
           alt="Ate 30% de desconto em pizzas!"
@@ -62,9 +62,9 @@ const Home = async () => {
         </div>
         <ProductList products={products} />
       </div>
-      <div className="px-5 pt-6">
+      <div className="pt-6">
         <PromoBanner
-          src={"/PromoBanner01.png"}
+          src={"/Promo_Banner01.png"}
           alt="A partir de R$17,90 em lanches"
         />
       </div>
