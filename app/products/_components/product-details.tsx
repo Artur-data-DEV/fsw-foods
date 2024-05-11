@@ -75,7 +75,7 @@ const ProductDetails = ({
           </div>
           {/* PREÇO ORIGINAL */}
           {discountPercentage > 0 && (
-            <p className="text-sm text-muted-foreground">{`De: ${formatCurrency(Number(price))}`}</p>
+            <p className="text-sm text-muted-foreground">{`De: ${formatCurrency(price)}`}</p>
           )}
         </div>
 

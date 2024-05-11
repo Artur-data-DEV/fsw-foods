@@ -1,6 +1,5 @@
 import CategoryList from "./_components/category-list";
 import Header from "./_components/header";
-import SearchInput from "./_components/ui/search-input";
 import ProductList from "./_components/product-list";
 import { ChevronRightIcon } from "lucide-react";
 import { Button } from "./_components/ui/button";
@@ -8,6 +7,7 @@ import { db } from "./_lib/prisma";
 import PromoBanner from "./_components/promo-banner";
 import RestaurantList from "./_components/restaurant-list";
 import Link from "next/link";
+import Search from "./_components/ui/search";
 
 const Home = async () => {
   const productsCount = await db.product.count();
@@ -36,7 +36,7 @@ const Home = async () => {
     <>
       <Header />
       <div className={"px-5 pt-6"}>
-        <SearchInput onSearch={() => {}} />
+        <Search />
       </div>
 
       <div className={"px-5 pt-6"}>
@@ -57,8 +57,10 @@ const Home = async () => {
             className="h-fit p-0 text-primary hover:bg-transparent"
             asChild
           >
-            <Link href={"/products/recommended"}>Ver todos</Link>
-            <ChevronRightIcon size={16} />
+            <Link href={"/products/recommended"}>
+              Ver todos
+              <ChevronRightIcon size={16} />
+            </Link>
           </Button>
         </div>
         <ProductList products={products} />
