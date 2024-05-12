@@ -5,8 +5,8 @@ import CartItem from "./cart-item";
 const Cart = () => {
   const { products } = useContext(CartContext);
   return (
-    <div className="flex justify-end py-5">
-      <div className="space-y-4">
+    <div className="flex justify-center py-5">
+      <div className="w-full space-y-4 ">
         {products.map((product) => {
           return <CartItem key={product.id} cartProduct={product} />;
         })}
