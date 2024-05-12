@@ -43,11 +43,9 @@ const ProductDetails = ({
     description,
     restaurant: { name: restaurantName, imageUrl: restaurantImageUrl },
   } = product;
-
   const [quantity, setQuantity] = useState(1);
-  const { addProductToCart, products } = useContext(CartContext);
+  const { addProductToCart } = useContext(CartContext);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  console.log(products);
 
   const handleAddToCartClick = () => {
     addProductToCart(product, quantity);
@@ -134,7 +132,7 @@ const ProductDetails = ({
       </div>
       <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
         <SheetHeader>
-          <SheetContent>
+          <SheetContent className="w-[90vw]">
             <SheetTitle className="text-left">Carrinho</SheetTitle>
             <Cart />
           </SheetContent>

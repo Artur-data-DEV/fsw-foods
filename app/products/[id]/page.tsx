@@ -32,7 +32,7 @@ const ProductPage = async ({ params: { id } }: ProductPageProps) => {
   let complementaryProducts;
 
   if (
-    ["Hamburguers", "Pizzas", "Japonesa", "Brasileira"].includes(categoryName)
+    ["Hambúrgueres", "Pizzas", "Japonesa", "Brasileira"].includes(categoryName)
   ) {
     // Se for uma categoria primária, buscar sucos e sobremesas
     complementaryProducts = await db.product.findMany({
@@ -52,7 +52,7 @@ const ProductPage = async ({ params: { id } }: ProductPageProps) => {
     complementaryProducts = await db.product.findMany({
       where: {
         OR: [
-          { category: { name: "Hamburguers" } },
+          { category: { name: "Hambúrgueres" } },
           { category: { name: "Pizzas" } },
           { category: { name: "Japonesa" } },
           { category: { name: "Brasileira" } },
