@@ -1,7 +1,7 @@
 "use client";
 import { Restaurant } from "@prisma/client";
 import { notFound, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { searchForRestaurant } from "./recommended/_actions/search";
 import Header from "../_components/header";
 import RestaurantItem from "../_components/restaurant-item";
@@ -45,4 +45,10 @@ const Restaurants = () => {
   );
 };
 
-export default Restaurants;
+const SuspendedRestaurants = () => (
+  <Suspense fallback="Carregando...">
+    <Restaurants />
+  </Suspense>
+);
+
+export default SuspendedRestaurants;
