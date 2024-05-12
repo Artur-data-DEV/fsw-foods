@@ -43,35 +43,37 @@ const CartItem = ({ cartProduct }: CartItemProps) => {
           />
         </div>
         {/* Informações */}
-        <div className="flex-auto justify-between">
+        <div className="flex-col justify-between">
           <h3 className="text-xs">{name}</h3>
-          <h4 className="text-sm font-semibold">
-            {formatCurrency(
-              calculateProductTotalPrice({ product: cartProduct }),
+          <div className="flex space-x-1 text-center">
+            <h4 className="text-sm font-semibold">
+              {formatCurrency(
+                calculateProductTotalPrice({ product: cartProduct }) * quantity,
+              )}
+            </h4>
+            {discountPercentage > 0 && (
+              <span className="text-xs text-gray-500 line-through ">
+                {formatCurrency(price * quantity)}
+              </span>
             )}
-          </h4>
-          {discountPercentage > 0 && (
-            <span className="text-xs text-gray-500 line-through">
-              {formatCurrency(price)}
-            </span>
-          )}
+          </div>
           {/* Botões de adicionar e remover */}
           <div className="mt-2 flex items-center gap-3 text-center">
             <Button
               size="icon"
               variant="ghost"
-              className="h-8 w-8 border border-solid border-muted-foreground"
+              className="h-7 w-7 border border-solid border-muted-foreground"
               onClick={handleDecreaseQuantityClick}
             >
-              <ChevronLeftIcon size={18} />
+              <ChevronLeftIcon size={16} />
             </Button>
-            <span className="w-4 text-sm">{quantity}</span>
+            <span className="block w-4 text-xs">{quantity}</span>
             <Button
               size="icon"
-              className="h-8 w-8"
+              className="h-7 w-7"
               onClick={handleIncreaseQuantityClick}
             >
-              <ChevronRightIcon size={18} />
+              <ChevronRightIcon size={16} />
             </Button>
           </div>
         </div>
