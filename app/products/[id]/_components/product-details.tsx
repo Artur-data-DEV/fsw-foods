@@ -18,6 +18,16 @@ import {
   SheetTitle,
 } from "@/app/_components/ui/sheet";
 import Cart from "@/app/_components/cart";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/app/_components/ui/alert-dialog";
 
 interface ProductDetailsProps {
   product: Prisma.ProductGetPayload<{
@@ -44,13 +54,29 @@ const ProductDetails = ({
     restaurant: { name: restaurantName, imageUrl: restaurantImageUrl },
   } = product;
   const [quantity, setQuantity] = useState(1);
-  const { addProductToCart } = useContext(CartContext);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isConfirmationDialogOpen, setIsConfirmationDialogOpen] =
+    useState(false);
 
-  const handleAddToCartClick = () => {
+  const { addProductToCart, products } = useContext(CartContext);
+
+  const addToCart = () => {
     addProductToCart(product, quantity);
     setIsCartOpen(true);
   };
+
+  const handleAddToCartClick = () => {
+    console.log("Add to cart clicked...");
+    const hasDifferentRestaurantProduct = products.some((cartProduct) => {
+      return cartProduct.restaurantId !== product.restaurantId;
+    });
+    if (hasDifferentRestaurantProduct) {
+      setIsConfirmationDialogOpen(true);
+    } else {
+      addToCart(); // Adicionar ao carrinho imediatamente se não houver produtos de restaurantes diferentes
+    }
+  };
+
   const handleIncreaseQuantityCLick = () =>
     setQuantity((currentState) => currentState + 1);
   const handleDecreaseQuantityClick = () => {
@@ -138,6 +164,29 @@ const ProductDetails = ({
           </SheetContent>
         </SheetHeader>
       </Sheet>
+
+      <AlertDialog
+        open={isConfirmationDialogOpen}
+        onOpenChange={setIsConfirmationDialogOpen}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Seu carrinho não está vazio</AlertDialogTitle>
+            <AlertDialogDescription>Limpar sacola?</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Não</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => {
+                addToCart();
+                setIsConfirmationDialogOpen(false);
+              }}
+            >
+              Sim
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </>
   );
 };
