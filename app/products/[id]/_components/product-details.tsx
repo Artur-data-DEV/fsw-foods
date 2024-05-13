@@ -60,8 +60,8 @@ const ProductDetails = ({
 
   const { addProductToCart, products } = useContext(CartContext);
 
-  const addToCart = () => {
-    addProductToCart(product, quantity);
+  const addToCart = ({ emptyCart }: { emptyCart?: boolean }) => {
+    addProductToCart({ product, quantity, emptyCart });
     setIsCartOpen(true);
   };
 
@@ -71,10 +71,11 @@ const ProductDetails = ({
       return cartProduct.restaurantId !== product.restaurantId;
     });
     if (hasDifferentRestaurantProduct) {
-      setIsConfirmationDialogOpen(true);
-    } else {
-      addToCart(); // Adicionar ao carrinho imediatamente se não houver produtos de restaurantes diferentes
+      return setIsConfirmationDialogOpen(true);
     }
+    addToCart({
+      emptyCart: false,
+    });
   };
 
   const handleIncreaseQuantityCLick = () =>
@@ -85,7 +86,7 @@ const ProductDetails = ({
       return currentState - 1;
     });
   };
-
+  console.log("Rendering product details...");
   return (
     <>
       <div className="relative z-50 mt-[-1.5rem] rounded-tl-3xl rounded-tr-3xl bg-white py-5">
@@ -176,12 +177,7 @@ const ProductDetails = ({
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Não</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={() => {
-                addToCart();
-                setIsConfirmationDialogOpen(false);
-              }}
-            >
+            <AlertDialogAction onClick={() => addToCart({ emptyCart: true })}>
               Sim
             </AlertDialogAction>
           </AlertDialogFooter>

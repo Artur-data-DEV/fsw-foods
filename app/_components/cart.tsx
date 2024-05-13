@@ -35,12 +35,12 @@ const Cart = () => {
                   <div className="flex items-center justify-between text-xs ">
                     <span className="text-muted-foreground">Entrega</span>
                     <span>
-                      {products[0].restaurant.deliveryFee === 0 ? (
+                      {products[0]?.restaurant.deliveryFee === 0 ? (
                         <span className=" font-semibold uppercase text-primary">
                           Grátis
                         </span>
                       ) : (
-                        formatCurrency(products[0].restaurant.deliveryFee)
+                        formatCurrency(products[0]?.restaurant.deliveryFee)
                       )}
                     </span>
                   </div>
@@ -49,7 +49,7 @@ const Cart = () => {
                     <span className="font-semibold ">Total</span>
                     <span>
                       {formatCurrency(
-                        totalPrice + products[0].restaurant.deliveryFee,
+                        totalPrice + products[0]?.restaurant.deliveryFee,
                       )}
                     </span>
                   </div>
