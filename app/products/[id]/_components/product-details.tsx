@@ -157,14 +157,16 @@ const ProductDetails = ({
           </Button>
         </div>
       </div>
-      <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
-        <SheetHeader>
-          <SheetContent className="w-[90vw]">
-            <SheetTitle className="text-left">Carrinho</SheetTitle>
-            <Cart />
-          </SheetContent>
-        </SheetHeader>
-      </Sheet>
+      {products.length > 0 && (
+        <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
+          <SheetHeader>
+            <SheetContent className="w-[90vw]">
+              <SheetTitle className="text-left">Carrinho</SheetTitle>
+              <Cart />
+            </SheetContent>
+          </SheetHeader>
+        </Sheet>
+      )}
 
       <AlertDialog
         open={isConfirmationDialogOpen}

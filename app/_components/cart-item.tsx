@@ -58,7 +58,7 @@ const CartItem = ({ cartProduct }: CartItemProps) => {
             )}
           </div>
           {/* Botões de adicionar e remover */}
-          <div className="mt-2 flex items-center gap-3 text-center">
+          <div className="mt-2 flex items-center text-center">
             <Button
               size="icon"
               variant="ghost"
@@ -67,7 +67,7 @@ const CartItem = ({ cartProduct }: CartItemProps) => {
             >
               <ChevronLeftIcon size={16} />
             </Button>
-            <span className="block w-4 text-xs">{quantity}</span>
+            <p className="block w-8 text-xs">{quantity}</p>
             <Button
               size="icon"
               className="h-7 w-7"
