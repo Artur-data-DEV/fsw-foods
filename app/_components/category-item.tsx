@@ -1,3 +1,4 @@
+// CategoryItem.tsx
 import { Category } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
@@ -5,16 +6,20 @@ import Link from "next/link";
 interface CategoryItemProps {
   category: Category;
 }
+
 const CategoryItem = ({ category }: CategoryItemProps) => {
   const { id, name, imageUrl } = category;
   return (
-    <Link
-      href={`/categories/${id}/products`}
-      className="flex items-center justify-center gap-3 rounded-full bg-white py-3 shadow-md"
-    >
-      <Image src={imageUrl} alt={name} height={30} width={30} />
-      <span className="text-sm font-semibold">{name}</span>
-    </Link>
+    <div className="w-full rounded-lg bg-white shadow-md hover:shadow-lg">
+      <Link href={`/categories/${id}/products`} passHref>
+        <div className="flex transform items-center justify-around gap-1 rounded-lg p-2 hover:bg-gray-100">
+          <div className="relative h-12 w-12 overflow-hidden">
+            <Image src={imageUrl} alt={name} fill sizes="100%" />
+          </div>
+          <span className="text-sm font-semibold">{name}</span>
+        </div>
+      </Link>
+    </div>
   );
 };
 

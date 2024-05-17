@@ -13,7 +13,7 @@ interface RestaurantImageProps {
 const RestaurantImage = ({ restaurant }: RestaurantImageProps) => {
   const { imageUrl, name } = restaurant;
   const router = useRouter();
-  const handleBackClick = () => router.back();
+  const handleBackClick = () => router.push("/");
   return (
     <div className="relative h-[215px] w-full">
       <Image

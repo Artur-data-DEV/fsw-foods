@@ -1,8 +1,26 @@
 {
-  "WillLuke.nextjs.addTypesOnSave": true,
-  "WillLuke.nextjs.hasPrompted": true,
-  "editor.fontFamily": "Fira Code",
-  "editor.fontLigatures": true,
+  "$schema": "vscode://schemas/settings/folder",
+  "definitions": {
+    "variables": {
+      "WillLuke.nextjs.addTypesOnSave": true,
+      "WillLuke.nextjs.hasPrompted": true,
+      "editor.fontFamily": "Fira Code",
+      "editor.fontLigatures": true,
+      "cSpell.diagnosticLevel": "Hint",
+      "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "**/.retool_types/**": true,
+        "**/*tsconfig.json": true,
+        ".cache": true,
+        "retool.config.json": true
+      }
+    }
+  },
   "files.exclude": {
     "**/.git": true,
     "**/.svn": true,
