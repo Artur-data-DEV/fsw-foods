@@ -10,20 +10,13 @@ import {
   BikeIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
-  ShoppingBasketIcon,
   TimerIcon,
 } from "lucide-react";
 import { Button } from "@/app/_components/ui/button";
 import { useContext, useState } from "react";
 import ProductList from "@/app/_components/product-list";
 import { CartContext } from "@/app/_context/cart";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from "@/app/_components/ui/sheet";
-import Cart from "@/app/_components/cart";
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -35,7 +28,7 @@ import {
   AlertDialogTitle,
 } from "@/app/_components/ui/alert-dialog";
 import { useRouter } from "next/navigation";
-import CartBanner from "@/app/restaurants/[id]/_components/cart-banner";
+import CartBanner from "@/app/_components/cart-banner";
 import { Separator } from "@/app/_components/ui/separator";
 
 interface ProductDetailsProps {
@@ -69,11 +62,10 @@ const ProductDetails = ({
     },
   } = product;
   const [quantity, setQuantity] = useState(1);
-  const [isCartOpen, setIsCartOpen] = useState(false);
   const [isConfirmationDialogOpen, setIsConfirmationDialogOpen] =
     useState(false);
 
-  const { addProductToCart, products } = useContext(CartContext);
+  const { addProductToCart, products, setIsCartOpen } = useContext(CartContext);
 
   const addToCart = ({ emptyCart }: { emptyCart?: boolean }) => {
     addProductToCart({ product, quantity, emptyCart });
@@ -81,7 +73,6 @@ const ProductDetails = ({
   };
 
   const handleAddToCartClick = () => {
-    console.log("Add to cart clicked...");
     const hasDifferentRestaurantProduct = products.some((cartProduct) => {
       return cartProduct.restaurantId !== product.restaurantId;
     });
@@ -102,13 +93,12 @@ const ProductDetails = ({
     });
   };
   const router = useRouter();
-  console.log("Rendering product details...");
   return (
     <>
       <div className="relative mt-[-1.5rem] rounded-tl-3xl rounded-tr-3xl border-t border-solid border-muted bg-white p-2 pb-24 shadow-md ">
         {/* RESTAURANTE */}
         <div className=" items-center gap-[0.325rem] p-4 ">
-          <div className="relative h-14 w-14 justify-around space-x-11">
+          <div className="relative h-16 w-16 justify-around space-x-16">
             <Image
               src={restaurantImageUrl}
               alt={restaurantName}
@@ -122,7 +112,7 @@ const ProductDetails = ({
               className="bg-transparent text-gray-500 hover:bg-transparent"
             >
               <div>
-                <h1 className="text-left text-lg font-semibold text-gray-900">
+                <h1 className="text-left text-xl font-semibold text-gray-800 hover:cursor-pointer">
                   {restaurantName}
                 </h1>
                 <div className="flex items-center gap-4 text-muted-foreground">
@@ -130,7 +120,7 @@ const ProductDetails = ({
                   <div className="flex items-center gap-1">
                     <BikeIcon size={16} className="text-primary" />
                     <p
-                      className={`text-sm font-semibold ${restaurantDeliveryFee === 0 ? "uppercase text-green-500" : ""}`}
+                      className={`text-sm font-light ${restaurantDeliveryFee === 0 ? "uppercase text-green-500" : ""}`}
                     >
                       {restaurantDeliveryFee > 0
                         ? formatCurrency(restaurantDeliveryFee)
@@ -140,7 +130,7 @@ const ProductDetails = ({
                   {/* Ícone do temporizador */}
                   <div className="flex items-center gap-1">
                     <TimerIcon size={16} className="text-primary" />
-                    <p className="text-sm font-semibold">
+                    <p className="text-sm font-light">
                       {restaurantDeliveryTimeMinutes + "min"}
                     </p>
                   </div>
@@ -150,7 +140,9 @@ const ProductDetails = ({
           </div>
         </div>
         {/* NOME DO PRODUTO */}
-        <h1 className="mb-2 mt-2 px-5 text-xl font-semibold">{name}</h1>
+        <h1 className="mb-2 mt-2 px-5 text-xl font-medium text-zinc-700">
+          {name}
+        </h1>
         {/* PREÇO DO PRODUTO E QUANTIDADE */}
         <div className="flex justify-between px-5">
           {/* PREÇO COM DESCONTO */}
@@ -198,22 +190,8 @@ const ProductDetails = ({
           <h3 className="px-5 font-semibold">Adicione mais itens</h3>
           <ProductList products={complementaryProducts} />
         </div>
-        <CartBanner restaurant={product.restaurant} />
+        <CartBanner />
       </div>
-
-      {products.length > 0 && (
-        <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
-          <SheetHeader>
-            <SheetContent className="w-[90vw] ">
-              <SheetTitle className="flex items-center justify-between text-left">
-                Sacola
-                <ShoppingBasketIcon color={"#ff3865"} />
-              </SheetTitle>
-              <Cart />
-            </SheetContent>
-          </SheetHeader>
-        </Sheet>
-      )}
 
       <AlertDialog
         open={isConfirmationDialogOpen}

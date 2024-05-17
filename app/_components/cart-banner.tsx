@@ -10,20 +10,17 @@ import {
 } from "@/app/_components/ui/sheet";
 import { CartContext } from "@/app/_context/cart";
 import { formatCurrency } from "@/app/_helpers/price";
-import { Restaurant } from "@prisma/client";
-import { useContext, useState } from "react";
+import { ShoppingBasketIcon } from "lucide-react";
+import { useContext } from "react";
 
-interface CartBannerProps {
-  restaurant: Pick<Restaurant, "id">;
-}
+const CartBanner = () => {
+  const { totalPrice, totalQuantity, isCartOpen, setIsCartOpen } =
+    useContext(CartContext);
+  const handleOpenCart = () => {
+    setIsCartOpen(true);
+  };
 
-const CartBanner = ({ restaurant }: CartBannerProps) => {
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const { products, totalPrice, totalQuantity } = useContext(CartContext);
-  const restaurantHasProductsOnCart = products.some((product) => {
-    return product.restaurantId === restaurant.id;
-  });
-  if (!restaurantHasProductsOnCart) return null;
+  if (totalQuantity === 0) return null;
   return (
     <div className="fixed bottom-0 left-0 z-10 w-full border-t border-solid border-muted bg-white p-5 pt-3">
       <div className="relative flex items-center justify-between">
@@ -34,22 +31,24 @@ const CartBanner = ({ restaurant }: CartBannerProps) => {
           <h3 className="font-semibold">
             {formatCurrency(totalPrice)}{" "}
             <span className="text-xs text-muted-foreground">
-              {" "}
               /{totalQuantity} {totalQuantity > 1 ? "itens" : "item"}
             </span>
           </h3>
         </div>
-        <Button onClick={() => setIsCartOpen(true)}>Ver sacola</Button>
-
-        <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
-          <SheetContent className="w-[80vw]">
+        <div>
+          <Button onClick={handleOpenCart}>Ver sacola</Button>
+          <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
             <SheetHeader>
-              <SheetTitle className="text-left">Sacola</SheetTitle>
+              <SheetContent className="w-[90vw]">
+                <SheetTitle className="flex items-center justify-between text-left">
+                  Sacola
+                  <ShoppingBasketIcon color={"#ff3865"} />
+                </SheetTitle>
+                <Cart />
+              </SheetContent>
             </SheetHeader>
-
-            <Cart />
-          </SheetContent>
-        </Sheet>
+          </Sheet>
+        </div>
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ import Image from "next/image";
 import { StarIcon } from "lucide-react";
 import DeliveryInfo from "@/app/_components/delivery-info";
 import ProductList from "@/app/_components/product-list";
-import CartBanner from "./_components/cart-banner";
+import CartBanner from "../../_components/cart-banner";
 
 interface RestaurantPageProps {
   params: {
@@ -65,10 +65,10 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
   return (
     <div>
       <RestaurantImage restaurant={restaurant} />
-      <div className="relative z-50 mt-[-1.5rem] flex items-center justify-between rounded-tl-3xl rounded-tr-3xl bg-white px-5 pt-5">
+      <div className="relative z-50 mb-12 mt-[-1.5rem] h-16 w-full items-center rounded-tl-3xl rounded-tr-3xl border-t border-solid border-muted bg-white px-6 pt-5  ">
         {/* titulo */}
-        <div className="flex items-center gap-[0.375rem]">
-          <div className="relative h-10 w-10">
+        <div className="flex items-center justify-between gap-2">
+          <div className="relative h-16 w-16">
             <Image
               src={imageUrl}
               alt={name}
@@ -77,11 +77,11 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
             />
           </div>
 
-          <h1 className="text-xl font-semibold">{name}</h1>
-        </div>
-        <div className="flex items-center gap-[0.375rem] rounded-full bg-foreground px-2 py-[2px] text-white">
-          <StarIcon size={12} className="fill-yellow-400 text-yellow-500" />
-          <span className="text-xs font-semibold">5.0</span>
+          <h1 className="text-2xl font-semibold">{name}</h1>
+          <div className="flex items-center gap-[0.375rem] rounded-full bg-foreground px-2 py-[2px] text-white">
+            <StarIcon size={12} className="fill-yellow-400 text-yellow-500" />
+            <span className="text-xs font-semibold">5.0</span>
+          </div>
         </div>
       </div>
 
@@ -116,7 +116,7 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
           </div>
         ))}
       </div>
-      <CartBanner restaurant={restaurant} />
+      <CartBanner />
     </div>
   );
 };

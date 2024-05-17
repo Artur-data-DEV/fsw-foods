@@ -3,7 +3,6 @@ import { Restaurant } from "@prisma/client";
 import { notFound, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import { searchForRestaurant } from "./recommended/_actions/search";
-import Header from "../_components/header";
 import RestaurantItem from "../_components/restaurant-item";
 
 const Restaurants = () => {
@@ -26,7 +25,6 @@ const Restaurants = () => {
 
   return (
     <>
-      <Header />
       <div className="px-5 py-6">
         <h2 className="mb-6 text-lg font-semibold">
           {`Resultados para "${searchFor}"`}

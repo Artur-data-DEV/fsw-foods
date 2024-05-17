@@ -12,7 +12,10 @@ const Cart = () => {
 
   return (
     <div className="flex h-full flex-col py-5">
-      <div className="flex-auto space-y-4">
+      <div
+        className={`mb-4 flex h-full flex-col space-y-4 ${products.length >= 3 && "hide-scrollbar overflow-y-scroll"}`}
+      >
+        {" "}
         {products.map((product) => {
           return <CartItem key={product.id} cartProduct={product} />;
         })}

@@ -46,6 +46,8 @@ interface ICartContext {
   increaseProductQuantity: (productId: string) => void;
   // eslint-disable-next-line no-unused-vars
   removeProductFromCart: (productId: string) => void;
+  isCartOpen: boolean;
+  setIsCartOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const CartContext = createContext<ICartContext>({
@@ -54,14 +56,17 @@ export const CartContext = createContext<ICartContext>({
   totalPrice: 0,
   totalDiscounts: 0,
   totalQuantity: 0,
+  isCartOpen: false,
   addProductToCart: () => {},
   increaseProductQuantity: () => {},
   decreaseProductQuantity: () => {},
   removeProductFromCart: () => {},
+  setIsCartOpen: () => {},
 });
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [products, setProducts] = useState<CartProduct[]>([]);
+  const [isCartOpen, setIsCartOpen] = useState(false); // State to manage cart open/close
   const subtotalPrice = useMemo(() => {
     return products.reduce((acc, product) => {
       return acc + product.price * product.quantity;
@@ -169,10 +174,12 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         totalQuantity,
         totalDiscounts,
         products,
+        isCartOpen,
         addProductToCart,
         decreaseProductQuantity,
         increaseProductQuantity,
         removeProductFromCart,
+        setIsCartOpen,
       }}
     >
       {children}

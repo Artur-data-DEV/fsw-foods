@@ -32,5 +32,7 @@
     "**/*tsconfig.json": true,
     ".cache": true,
     "retool.config.json": true
-  }
+  },
+  "WillLuke.nextjs.addTypesOnSave": true,
+  "WillLuke.nextjs.hasPrompted": true
 }
