@@ -31,20 +31,12 @@ const CategoriesPage = async ({ params: { id } }: CategoriesPageProps) => {
   }
   const { name, products: categoryProducts } = category;
   return (
-    <div>
-      <div className={"px-5 py-6"}>
-        <h2 className="mb-6 text-lg font-semibold">{name}</h2>
-        <div className="grid grid-cols-3 flex-col gap-6 pb-14 ">
-          {categoryProducts.map((product) => {
-            return (
-              <ProductItem
-                key={product.id}
-                product={product}
-                className="min-w-full"
-              />
-            );
-          })}
-        </div>
+    <div className="container mx-auto px-4 py-8">
+      <h2 className="mb-6 text-center text-2xl font-bold capitalize">{name}</h2>
+      <div className="flex flex-wrap justify-center gap-6">
+        {categoryProducts.map((product) => (
+          <ProductItem key={product.id} product={product} />
+        ))}
       </div>
       <CartBanner />
     </div>
