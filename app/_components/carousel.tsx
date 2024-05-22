@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -41,6 +41,16 @@ const Carousel = ({ images, links }: CarouselProps) => {
       },
     ],
   };
+
+  useEffect(() => {
+    const prevArrow = document.querySelector(".slick-prev");
+    const nextArrow = document.querySelector(".slick-next");
+
+    if (prevArrow && nextArrow) {
+      prevArrow.remove();
+      nextArrow.remove();
+    }
+  }, []);
 
   return (
     <Slider {...settings}>
